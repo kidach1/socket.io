@@ -971,15 +971,15 @@ describe('socket.io', function(){
         });
 
         var socket = client(srv, { transports: ['polling'] });
-        socket.on('ev', function() {
-          counter++;
+        new Promise(function(resolve) {
+          socket.on('ev', function() {
+            resolve(counter++);
+          });
+        }).then(function() {
+          expect(counter).to.be(1);
+          done();
         });
       });
-
-      setTimeout(function() {
-        expect(counter).to.be(1);
-        done();
-      }, 200);
     });
 
     it('should not emit volatile event after regular event (ws)', function(done) {
@@ -994,15 +994,15 @@ describe('socket.io', function(){
         });
 
         var socket = client(srv, { transports: ['websocket'] });
-        socket.on('ev', function() {
-          counter++;
+        new Promise(function(resolve) {
+          socket.on('ev', function() {
+            resolve(counter++);
+          });
+        }).then(function() {
+          expect(counter).to.be(1);
+          done();
         });
       });
-
-      setTimeout(function() {
-        expect(counter).to.be(1);
-        done();
-      }, 200);
     });
 
     it('should emit volatile event (polling)', function(done) {
@@ -1015,19 +1015,19 @@ describe('socket.io', function(){
           // Wait to make sure there are no packets being sent for opening the connection
           setTimeout(function() {
             s.volatile.emit('ev', 'data');
-          }, 20);
+          }, 50);
         });
 
         var socket = client(srv, { transports: ['polling'] });
-        socket.on('ev', function() {
-          counter++;
+        new Promise(function(resolve) {
+          socket.on('ev', function() {
+            resolve(counter++);
+          });
+        }).then(function() {
+          expect(counter).to.be(1);
+          done();
         });
       });
-
-      setTimeout(function() {
-        expect(counter).to.be(1);
-        done();
-      }, 200);
     });
 
     it('should emit volatile event (ws)', function(done) {
@@ -1040,19 +1040,19 @@ describe('socket.io', function(){
           // Wait to make sure there are no packets being sent for opening the connection
           setTimeout(function() {
             s.volatile.emit('ev', 'data');
-          }, 20);
+          }, 50);
         });
 
         var socket = client(srv, { transports: ['websocket'] });
-        socket.on('ev', function() {
-          counter++;
+        new Promise(function(resolve) {
+          socket.on('ev', function() {
+            resolve(counter++);
+          });
+        }).then(function() {
+          expect(counter).to.be(1);
+          done();
         });
       });
-
-      setTimeout(function() {
-        expect(counter).to.be(1);
-        done();
-      }, 200);
     });
 
     it('should emit only one consecutive volatile event (polling)', function(done) {
@@ -1066,19 +1066,19 @@ describe('socket.io', function(){
           setTimeout(function() {
             s.volatile.emit('ev', 'data');
             s.volatile.emit('ev', 'data');
-          }, 20);
+          }, 50);
         });
 
         var socket = client(srv, { transports: ['polling'] });
-        socket.on('ev', function() {
-          counter++;
+        new Promise(function(resolve) {
+          socket.on('ev', function() {
+            resolve(counter++);
+          });
+        }).then(function() {
+          expect(counter).to.be(1);
+          done();
         });
       });
-
-      setTimeout(function() {
-        expect(counter).to.be(1);
-        done();
-      }, 200);
     });
 
     it('should emit only one consecutive volatile event (ws)', function(done) {
@@ -1092,19 +1092,19 @@ describe('socket.io', function(){
           setTimeout(function() {
             s.volatile.emit('ev', 'data');
             s.volatile.emit('ev', 'data');
-          }, 20);
+          }, 50);
         });
 
         var socket = client(srv, { transports: ['websocket'] });
-        socket.on('ev', function() {
-          counter++;
+        new Promise(function(resolve) {
+          socket.on('ev', function() {
+            resolve(counter++);
+          });
+        }).then(function() {
+          expect(counter).to.be(1);
+          done();
         });
       });
-
-      setTimeout(function() {
-        expect(counter).to.be(1);
-        done();
-      }, 200);
     });
 
     it('should emit regular events after trying a failed volatile event (polling)', function(done) {
